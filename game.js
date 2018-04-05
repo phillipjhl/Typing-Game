@@ -23,11 +23,6 @@ $(document).ready(function () {
     let sentIndex = 0;
     //counter for which character user is on in each sentence
     let charIndex = 0;
-<<<<<<< HEAD
-    //expeccted character ASCII character
-    let expected = getExpectedCharCode(sentIndex, charIndex, sentences);
-=======
->>>>>>> ca51f517fcea1e274a2723ac28cadd72db928d51
 
     //display sentences one at a time
     //creating each sentence as paragraphs to callback to hide or show
@@ -36,20 +31,12 @@ $(document).ready(function () {
     let $thirdSentence = $('<p>' + sentences[2] + '</p>');
     let $fourthSentence = $('<p>' + sentences[3] + '</p>');
     let $fifthSentence = $('<p>' + sentences[4] + '</p>');
-<<<<<<< HEAD
-
-=======
->>>>>>> ca51f517fcea1e274a2723ac28cadd72db928d51
     //appending each sentence to the div with id "sentence"
     $('#sentence').append($firstSentence);
     $('#sentence').append($secondSentence);
     $('#sentence').append($thirdSentence);
     $('#sentence').append($fourthSentence);
     $('#sentence').append($fifthSentence);
-<<<<<<< HEAD
-
-=======
->>>>>>> ca51f517fcea1e274a2723ac28cadd72db928d51
     //each if statement checks the sentIndex to show the correct sentence the user is on
     if (sentIndex === 0) {
         $($secondSentence).hide();
@@ -82,7 +69,6 @@ $(document).ready(function () {
         $($fourthSentence).hide();
     }
 
-<<<<<<< HEAD
     //Display currently expected letter
     $target = String.fromCharCode(expected);
     $('#target-letter').append($target);
@@ -118,29 +104,15 @@ $(document).ready(function () {
     character = charIndex
     paragraph = sentences
     */
-=======
-    //function to return an expected char code of the next letter
-    //sentence = sentIndex
-    //character = charIndex
-    //paragraph = sentences
->>>>>>> ca51f517fcea1e274a2723ac28cadd72db928d51
     function getExpectedCharCode(sentence, character, paragraph) {
         var sentence;
         var character;
         var paragraph;
         let expectedCode = paragraph[sentence].charCodeAt(character);
-<<<<<<< HEAD
         //console.log(expectedCode);
         return expectedCode;
     }
 
-=======
-        console.log(expectedCode);
-        return expectedCode;
-        }
-    var e = getExpectedCharCode(0, 2, sentences);
-    
->>>>>>> ca51f517fcea1e274a2723ac28cadd72db928d51
     //hide uppercase keyboard at first
     $($uppercase).hide();
 
@@ -151,10 +123,6 @@ $(document).ready(function () {
             $($uppercase).show();
             $($lowercase).hide();
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> ca51f517fcea1e274a2723ac28cadd72db928d51
     });
     $(document).keyup(function (e) {
         //shift released: toggle  
@@ -164,13 +132,9 @@ $(document).ready(function () {
         }
     });
 
-<<<<<<< HEAD
     $(document).keypress(function(e) {
         var $target = '#' + e.which;
         $($target).css('background-color', 'yellow');
     });
-=======
-
->>>>>>> ca51f517fcea1e274a2723ac28cadd72db928d51
 
 });
