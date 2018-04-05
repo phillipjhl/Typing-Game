@@ -4,11 +4,8 @@ $(document).ready(function () {
     let $lowercase = $('#keyboard-lower-container');
     //words in array
     const words = 54;
-<<<<<<< HEAD
-=======
     //initializing mistake counter
     let mistakes = 0;
->>>>>>> ca51f517fcea1e274a2723ac28cadd72db928d51
     let sentences = ['ten ate neite ate nee enet ite ate inet ent eate',
         'Too ato too nOt enot one totA not anot tOO aNot',
         'oat itain oat tain nate eate tea anne inant nean',
