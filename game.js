@@ -23,7 +23,7 @@ $(document).ready(function () {
     let sentIndex = 0;
     //counter for which character user is on in each sentence
     let charIndex = 0;
-
+    
     //display sentences one at a time
     //creating each sentence as paragraphs to callback to hide or show
     let $firstSentence = $('<p>' + sentences[0] + '</p>');
@@ -68,7 +68,8 @@ $(document).ready(function () {
         $($thirdSentence).hide();
         $($fourthSentence).hide();
     }
-
+    //expected char code for current letter
+    let expected = getExpectedCharCode(sentIndex, charIndex, sentences);
     //Display currently expected letter
     $target = String.fromCharCode(expected);
     $('#target-letter').append($target);
