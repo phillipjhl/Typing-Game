@@ -106,9 +106,6 @@ $(document).ready(function () {
     paragraph = sentences
     */
     function getExpectedCharCode(sentence, character, paragraph) {
-        var sentence;
-        var character;
-        var paragraph;
         let expectedCode = paragraph[sentence].charCodeAt(character);
         //console.log(expectedCode);
         return expectedCode;
