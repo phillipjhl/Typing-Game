@@ -23,7 +23,7 @@ $(document).ready(function () {
     let sentIndex = 0;
     //counter for which character user is on in each sentence
     let charIndex = 0;
-    
+
     //display sentences one at a time
     //creating each sentence as paragraphs to callback to hide or show
     let $firstSentence = $('<p>' + sentences[0] + '</p>');
@@ -68,34 +68,34 @@ $(document).ready(function () {
         $($thirdSentence).hide();
         $($fourthSentence).hide();
     }
-    //expected char code for current letter
-    let expected = getExpectedCharCode(sentIndex, charIndex, sentences);
     //Display currently expected letter
+    var expected = getExpectedCharCode(sentIndex, charIndex, sentences);
     $target = String.fromCharCode(expected);
-    $('#target-letter').append($target);
+    $('#target-letter').append("<p>" + $target + "</p>");
 
     //main game function that checks user input to the expected character code and then calculates right or wrong
-    $(document).keypress(function (event) {
-        //var mistakes = 0;
-        //var sentIndex = 0;
-        //var charIndex = 0;
-        //var expected = getExpectedCharCode(sentIndex, charIndex, sentences);
-
-        //conditional to start game which checks if the correct letter was presed
+    $(document).keypress(function game (event) {
+        //start timer wether right or wrong key was pressed
+        var expected = getExpectedCharCode(sentIndex, charIndex, sentences);
+        //checks if the correct letter was presed
         if (event.which == expected) {
-            //start timer
+            
             //display green check into div #feedback
             console.log('correct');
             //animate highlight to next letter
             //add 1 to the charIndex counter
-            charIndex ++;
+            charIndex += 1
+            console.log(charIndex);
+            $target = String.fromCharCode(expected);
+            $('#target-letter p').replaceWith("<p>" + $target + "</p>");
         }
         //incorrect letter pressed
         else if (event.which !== expected) {
             //display red 'x' into div #feedback
+            console.log('incorrect');
             //add 1 to the mistakes counter
             mistakes += 1;
-            //console.log(mistakes);
+            console.log(mistakes);
         }
     });
 
@@ -130,9 +130,16 @@ $(document).ready(function () {
         }
     });
 
-    $(document).keypress(function(e) {
-        var $target = '#' + e.which;
-        $($target).css('background-color', 'yellow');
+    //adding highlight classes to all keys
+    //on key down: toggle on highlight class
+    //on key up: toggle off hihlight class
+    $(document).keydown(function (e) {
+        var $target = '#' + e.charCode;
+        $($target).addClass('highlighted');
+    });
+    $(document).keyup(function (e) {
+        var $target = '#' + e.charCode;
+        $($target).removeClass('highlighted');
     });
 
 });
