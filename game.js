@@ -43,7 +43,8 @@ $(document).ready(function () {
         //checks if the correct letter was presed
         if (event.which == expected) {
             //display green check into div #feedback
-            console.log('correct');
+            $('#feedback').append("<span class='glyphicon glyphicon-ok'></span>");
+            //console.log('correct');
             //animate highlight to next letter
             //add 1 to the charIndex counter
             charIndex += 1
@@ -69,6 +70,7 @@ $(document).ready(function () {
         //incorrect letter pressed
         else if (event.which !== expected) {
             //display red 'x' into div #feedback
+            $('#feedback').append("<span class='glyphicon glyphicon-remove'></span>");
             console.log('incorrect');
             //add 1 to the mistakes counter
             mistakes += 1;
