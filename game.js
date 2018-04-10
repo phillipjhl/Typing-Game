@@ -23,13 +23,9 @@ $(document).ready(function () {
     let $thirdSentence = $('<p>' + sentences[2] + '</p>');
     let $fourthSentence = $('<p>' + sentences[3] + '</p>');
     let $fifthSentence = $('<p>' + sentences[4] + '</p>');
-   
-    //appending each sentence to the div with id "sentence"
-    $('#sentence').append($firstSentence);
-    //$('#sentence').append($secondSentence);
-    //$('#sentence').append($thirdSentence);
-    //$('#sentence').append($fourthSentence);
-    //$('#sentence').append($fifthSentence);
+
+    //appending starting sentence to the div with id "sentence"
+    $('#sentence').append('<p>' + sentences[sentIndex] + '</p>');
 
     //Display currently expected letter
     var expected = getExpectedCharCode(sentIndex, charIndex, sentences);
@@ -37,34 +33,42 @@ $(document).ready(function () {
     $('#target-letter').append("<p>" + $target + "</p>");
 
     //main game function that checks user input to the expected character code and then calculates right or wrong
-    $(document).keypress(function game (event) {
+    $(document).keypress(function game(event) {
         //start timer wether right or wrong key was pressed
         var expected = getExpectedCharCode(sentIndex, charIndex, sentences);
         //checks if the correct letter was presed
         if (event.which == expected) {
             //display green check into div #feedback
             $('#feedback').append("<span class='glyphicon glyphicon-ok'></span>");
-            //console.log('correct');
             //animate highlight to next letter
+            $('#yellow-block').animate({ 'left': '+=17.5px' }, "fast");
             //add 1 to the charIndex counter
             charIndex += 1
-            //console.log(charIndex);
             //resets expected to next letter to properly display string on screen
             var expected = getExpectedCharCode(sentIndex, charIndex, sentences);
             $target = String.fromCharCode(expected);
             $('#target-letter p').replaceWith("<p>" + $target + "</p>");
-            console.log(sentIndex);
-        }
-        //when user reaches end of sentence, display next sentence and reset charIndex = 0 for next sentence
-        else if (charIndex == sentences[sentIndex].length) {
-            //go to next sentence
-            sentIndex += 1;
-            console.log('sentIndex = ' + sentIndex);
-            //start at the beginning of the new sentence
-            charIndex = 0;
-            console.log('charIndex = ' + charIndex);
-            //display current sentence the user is on
-            $('#sentence p').replaceWith('<p>' + sentences[sentIndex] + '</p>');
+
+            //if last sentence is complete, end game, display score and option to restart
+            if (charIndex == sentences[sentIndex].length & sentIndex == 4) {
+                //end timer
+                console.log('game over');
+            }
+            //when user reaches end of sentence, display next sentence and reset charIndex = 0 for next sentence
+            else if (charIndex == sentences[sentIndex].length) {
+                //clear out feedback div with after sentence completion
+                $('#feedback').empty();
+                //reset highlight animation
+                $('#yellow-block').animate({ 'left': '17.5px' }, "fast");
+                //go to next sentence
+                sentIndex += 1;
+                console.log('sentIndex = ' + sentIndex);
+                //start at the beginning of the new sentence
+                charIndex = 0;
+                console.log('charIndex = ' + charIndex);
+                //display current sentence the user is on
+                $('#sentence p').replaceWith('<p>' + sentences[sentIndex] + '</p>');
+            }
         }
 
         //incorrect letter pressed
