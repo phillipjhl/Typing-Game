@@ -13,7 +13,7 @@ $(document).ready(function () {
         'nee ene ate ite tent tiet ent ine ene ete ene ate'];
 
     //counter for which sentence user is on
-    let sentIndex = 0;
+    let sentIndex = 4;
     //counter for which character user is on in each sentence
     let charIndex = 0;
 
@@ -52,7 +52,7 @@ $(document).ready(function () {
             //if last sentence is complete, end game, display score and option to restart
             if (charIndex == sentences[sentIndex].length & sentIndex == 4) {
                 //end timer
-                console.log('game over');
+                $('#myModal').modal();
             }
             //when user reaches end of sentence, display next sentence and reset charIndex = 0 for next sentence
             else if (charIndex == sentences[sentIndex].length) {
