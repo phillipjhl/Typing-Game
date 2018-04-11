@@ -13,7 +13,7 @@ $(document).ready(function () {
         'nee ene ate ite tent tiet ent ine ene ete ene ate'];
 
     //counter for which sentence user is on
-    let sentIndex = 4;
+    let sentIndex = 0;
     //counter for which character user is on in each sentence
     let charIndex = 0;
 
@@ -32,9 +32,13 @@ $(document).ready(function () {
     $target = String.fromCharCode(expected);
     $('#target-letter').append("<p>" + $target + "</p>");
 
+    //hide score
+    $("#score").hide();
+
+    //start timer wether right or wrong key was pressed
+    var t0 = performance.now();
     //main game function that checks user input to the expected character code and then calculates right or wrong
     $(document).keypress(function game(event) {
-        //start timer wether right or wrong key was pressed
         var expected = getExpectedCharCode(sentIndex, charIndex, sentences);
         //checks if the correct letter was presed
         if (event.which == expected) {
@@ -50,9 +54,16 @@ $(document).ready(function () {
             $('#target-letter p').replaceWith("<p>" + $target + "</p>");
 
             //if last sentence is complete, end game, display score and option to restart
-            if (charIndex == sentences[sentIndex].length & sentIndex == 4) {
+            if (charIndex == sentences[sentIndex].length && sentIndex == 4) {
                 //end timer
-                $('#myModal').modal();
+                var t1 = performance.now();
+                //calculate user's words per minute
+                let minutes = ((t1 - t0) / 1000) / 60;
+                var score = Math.floor(words / minutes - 2 * mistakes);
+                //show score delay div
+                $("#score").show();
+                $("#score").append("<h2>" + score + " words per minute</h2>");
+                $("#score h2").insertBefore('#reset');
             }
             //when user reaches end of sentence, display next sentence and reset charIndex = 0 for next sentence
             else if (charIndex == sentences[sentIndex].length) {
@@ -62,10 +73,10 @@ $(document).ready(function () {
                 $('#yellow-block').animate({ 'left': '17.5px' }, "fast");
                 //go to next sentence
                 sentIndex += 1;
-                console.log('sentIndex = ' + sentIndex);
+                //console.log('sentIndex = ' + sentIndex);
                 //start at the beginning of the new sentence
                 charIndex = 0;
-                console.log('charIndex = ' + charIndex);
+                //console.log('charIndex = ' + charIndex);
                 //display current sentence the user is on
                 $('#sentence p').replaceWith('<p>' + sentences[sentIndex] + '</p>');
             }
@@ -75,12 +86,18 @@ $(document).ready(function () {
         else if (event.which !== expected) {
             //display red 'x' into div #feedback
             $('#feedback').append("<span class='glyphicon glyphicon-remove'></span>");
-            console.log('incorrect');
+            //console.log('incorrect');
             //add 1 to the mistakes counter
             mistakes += 1;
-            console.log(mistakes);
+            //console.log(mistakes);
         }
     });
+
+    //click No Thanks button to not restart game
+    $('#no-thanks').click(function () {
+        $('#score').toggle();
+    });
+
     /* 
     function to return an expected char code of the next letter
     sentence = sentIndex
@@ -91,6 +108,11 @@ $(document).ready(function () {
         let expectedCode = paragraph[sentence].charCodeAt(character);
         //console.log(expectedCode);
         return expectedCode;
+    }
+
+    function toggleKeyboards() {
+        $($uppercase).toggle();
+        $($lowercase).toggle();
     }
 
     //hide uppercase keyboard at first
