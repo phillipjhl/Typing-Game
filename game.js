@@ -36,7 +36,8 @@ $(document).ready(function () {
     $("#score").hide();
 
     //start timer wether right or wrong key was pressed
-    var t0 = performance.now();
+    var date1 = new Date();
+    var t0 = date1.getTime();
     //main game function that checks user input to the expected character code and then calculates right or wrong
     $(document).keypress(function game(event) {
         var expected = getExpectedCharCode(sentIndex, charIndex, sentences);
@@ -56,7 +57,8 @@ $(document).ready(function () {
             //if last sentence is complete, end game, display score and option to restart
             if (charIndex == sentences[sentIndex].length && sentIndex == 4) {
                 //end timer
-                var t1 = performance.now();
+                var date2 = new Date();
+                var t1 = date2.getTime();
                 //calculate user's words per minute
                 let minutes = ((t1 - t0) / 1000) / 60;
                 var score = Math.floor(words / minutes - 2 * mistakes);
